@@ -1,6 +1,8 @@
 export type TaskStatus = "todo" | "doing" | "done";
 export type TaskPriority = "low" | "medium" | "high";
 export type TaskFilter = "all" | TaskStatus | TaskPriority;
+export type SortBy = "estimatedHours" | "priority";
+export type SortOrder = "asc" | "desc";
 
 
 export type Task = {

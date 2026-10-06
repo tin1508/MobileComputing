@@ -3,7 +3,8 @@ import {getTasks,
     filterTasksByPriority,
     calculateTotalEstimatedHours,
     findTaskById,
-    isTask} from './task.service';
+    isTask,
+    sortTasks} from './task.service';
 import {tasks} from './task.data';
 import {openTask} from './task.callback';
 
@@ -60,3 +61,16 @@ highPriorityTasks.forEach((task) => {
     console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
 });
 
+//sort tasks by estimated hours
+const sortedByEstimatedHours = sortTasks(tasks, "estimatedHours", "asc");
+console.log("\nTasks sorted by estimated hours (ascending): ");
+sortedByEstimatedHours?.forEach((task) => {
+    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
+});
+
+//sort tasks by priority
+const sortedByPriority = sortTasks(tasks, "priority", "desc");
+console.log("\nTasks sorted by priority (descending): ");
+sortedByPriority?.forEach((task) => {
+    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
+});

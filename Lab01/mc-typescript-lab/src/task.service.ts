@@ -1,4 +1,4 @@
-import { Task, TaskFilter } from './task.types';
+import { Task, TaskFilter, TaskPriority, SortOrder, SortBy} from './task.types';
 
 //get all tasks
 export function getTasks(tasksList: Task[]): Task[]{
@@ -51,3 +51,17 @@ export function isTask(value: unknown): value is Task {
             validPriority);
 };
 
+//sort tasks by estimated hours or priority
+export function sortTasks(tasksList: Task[], sortBy: SortBy, sortOrder: SortOrder): Task[] | undefined {
+    const sortedTasks = [...tasksList]; //copy
+    const direction = sortOrder === "asc" ? 1 : -1;
+
+    if(sortBy === "estimatedHours"){
+        return sortedTasks.sort((a, b) => (a.estimatedHours - b.estimatedHours) * direction);
+    }
+    if(sortBy === "priority"){
+        const priorityOrder: TaskPriority[] = ["low", "medium", "high"];
+        return sortedTasks.sort((a, b) => (priorityOrder.indexOf(a.priority) - priorityOrder.indexOf(b.priority)) * direction);
+    }
+    return sortedTasks;
+};
