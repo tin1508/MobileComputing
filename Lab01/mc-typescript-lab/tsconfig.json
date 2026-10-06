@@ -1,0 +1,9 @@
+{
+  "compilerOptions":{
+    "target": "ES2025",
+    "module": "commonJS",
+    "strict": true, 
+    "rootDir": "src",
+    "outDir": "dist"
+  }
+}
