@@ -16,6 +16,13 @@ export function filterTasksByStatus(tasksList: Task[], taskFilter: TaskFilter): 
     return tasksList.filter((task) => task.status === taskFilter);
 }
 
+//filter tasks by priority
+export function filterTasksByPriority(tasksList: Task[], taskFilter: TaskFilter): Task[] {
+    if(taskFilter === "all") {
+        return tasksList;
+    }
+    return tasksList.filter((task) => task.priority === taskFilter);
+}
 
 //calculate total estimated hours
 export function calculateTotalEstimatedHours(tasksList: Task[]): number {

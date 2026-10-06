@@ -1,5 +1,6 @@
 import {getTasks, 
     filterTasksByStatus, 
+    filterTasksByPriority,
     calculateTotalEstimatedHours,
     findTaskById,
     isTask} from './task.service';
@@ -51,3 +52,11 @@ const unknownValue: unknown = {
 
 if(isTask(unknownValue)) console.log("Valid task: ", unknownValue.title);
 else console.log("Invalid task data");
+
+//filter by priority
+const highPriorityTasks = filterTasksByPriority(tasks, "high");
+console.log("\nHigh priority tasks: ");
+highPriorityTasks.forEach((task) => {
+    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
+});
+
