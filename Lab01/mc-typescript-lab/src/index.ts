@@ -4,7 +4,8 @@ import {getTasks,
     calculateTotalEstimatedHours,
     findTaskById,
     isTask,
-    sortTasks} from './task.service';
+    sortTasks,
+    formatTaskOutput} from './task.service';
 import {tasks} from './task.data';
 import {openTask} from './task.callback';
 
@@ -14,16 +15,12 @@ console.log(`Welcome to ${appName}!`);
 //print all tasks
 const allTasks = getTasks(tasks);
 console.log("\nAll tasks: ");
-allTasks.forEach((task) => {
-    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
-});
+allTasks.forEach((task) => console.log(formatTaskOutput(task)));
 
 //filter tasks by status
 const doingTasks = filterTasksByStatus(tasks, "doing");
 console.log("\nDoing tasks: ");
-doingTasks.forEach((task) => {
-    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
-});
+doingTasks.forEach((task) => console.log(formatTaskOutput(task)));
 
 //calculate total estimated hours
 const totalEstimatedHours = calculateTotalEstimatedHours(tasks);
@@ -33,7 +30,7 @@ console.log(`\nTotal estimated hours for all tasks: ${totalEstimatedHours}`);
 const taskId = "MC002";
 const selectedTask = findTaskById(tasks, taskId);
 if(selectedTask){
-    console.log(`\nTask with ID ${selectedTask.id}: Title: ${selectedTask.title} | Estimated Hours: ${selectedTask.estimatedHours} | Status: ${selectedTask.status} | Priority: ${selectedTask.priority} | Assignee: ${selectedTask.assignee}`);
+    console.log(`\nTask with ID ${selectedTask.id}: ${formatTaskOutput(selectedTask)}`);
 }
 else console.log(`\nTask with ID ${taskId} not found.`);
 
@@ -58,19 +55,19 @@ else console.log("Invalid task data");
 const highPriorityTasks = filterTasksByPriority(tasks, "high");
 console.log("\nHigh priority tasks: ");
 highPriorityTasks.forEach((task) => {
-    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
+    console.log(formatTaskOutput(task));
 });
 
 //sort tasks by estimated hours
 const sortedByEstimatedHours = sortTasks(tasks, "estimatedHours", "asc");
 console.log("\nTasks sorted by estimated hours (ascending): ");
 sortedByEstimatedHours?.forEach((task) => {
-    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
+    console.log(formatTaskOutput(task));
 });
 
 //sort tasks by priority
 const sortedByPriority = sortTasks(tasks, "priority", "desc");
 console.log("\nTasks sorted by priority (descending): ");
-sortedByPriority?.forEach((task) => {
-    console.log(`Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${task.assignee}`);
+sortedByPriority.forEach((task) => {
+    console.log(formatTaskOutput(task));
 });

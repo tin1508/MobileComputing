@@ -1,15 +1,14 @@
-import { Task, TaskFilter, TaskPriority, SortOrder, SortBy} from './task.types';
+import { Task, StatusFilter, PriorityFilter, TaskPriority, SortOrder, SortBy} from './task.types';
 
 //get all tasks
 export function getTasks(tasksList: Task[]): Task[]{
-    tasksList.forEach((task) => {
-        task.assignee = task.assignee ?? "Unassigned";
-    });
-    return tasksList;
+    return tasksList.map((task) => ({...task,
+        assignee: task.assignee ?? "Unassigned" 
+    })); //return a copy of the tasks
 };
 
 //filter tasks by status
-export function filterTasksByStatus(tasksList: Task[], taskFilter: TaskFilter): Task[] {
+export function filterTasksByStatus(tasksList: Task[], taskFilter: StatusFilter): Task[] {
     if(taskFilter === "all") {
         return tasksList;
     }
@@ -17,7 +16,7 @@ export function filterTasksByStatus(tasksList: Task[], taskFilter: TaskFilter): 
 }
 
 //filter tasks by priority
-export function filterTasksByPriority(tasksList: Task[], taskFilter: TaskFilter): Task[] {
+export function filterTasksByPriority(tasksList: Task[], taskFilter: PriorityFilter): Task[] {
     if(taskFilter === "all") {
         return tasksList;
     }
@@ -52,7 +51,7 @@ export function isTask(value: unknown): value is Task {
 };
 
 //sort tasks by estimated hours or priority
-export function sortTasks(tasksList: Task[], sortBy: SortBy, sortOrder: SortOrder): Task[] | undefined {
+export function sortTasks(tasksList: Task[], sortBy: SortBy, sortOrder: SortOrder): Task[] {
     const sortedTasks = [...tasksList]; //copy
     const direction = sortOrder === "asc" ? 1 : -1;
 
@@ -65,3 +64,9 @@ export function sortTasks(tasksList: Task[], sortBy: SortBy, sortOrder: SortOrde
     }
     return sortedTasks;
 };
+
+//format output when printing tasks
+export function formatTaskOutput(task: Task): string {
+    const assignee = task.assignee ?? "Unassigned";
+    return `Task ID: ${task.id} | Title: ${task.title} | Estimated Hours: ${task.estimatedHours} | Status: ${task.status} | Priority: ${task.priority} | Assignee: ${assignee}`;
+}
