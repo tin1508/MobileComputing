@@ -1,0 +1,31 @@
+name: Lab01 TypeScript Check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Lab01/mc-typescript-lab/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Lab01/mc-typescript-lab/**'
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./Lab01/mc-typescript-lab
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: ./Lab01/mc-typescript-lab/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: TypeScript type-check
+        run: npx tsc --noEmit

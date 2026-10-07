@@ -8,10 +8,20 @@ import {getTasks,
     formatTaskOutput} from './task.service';
 import {tasks} from './task.data';
 import {openTask} from './task.callback';
+import { Task } from './task.types';
 
 const appName: string = "Task Pocket";
 
 console.log(`Welcome to ${appName}!`);
+
+// const badTask: Task = {
+//     id: "ERR01",
+//     title: "Test error",
+//     estimatedHours: 3,
+//     status: "finished", 
+//     priority: "high",
+//     assignee: null
+// };
 //print all tasks
 const allTasks = getTasks(tasks);
 console.log("\nAll tasks: ");
@@ -36,7 +46,7 @@ else console.log(`\nTask with ID ${taskId} not found.`);
 
 //open task by ID
 openTask("MC003");
-// openTask("MC005");
+openTask("MC005");
 
 //type guard
 const unknownValue: unknown = {
